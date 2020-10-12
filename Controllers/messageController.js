@@ -13,14 +13,20 @@ module.exports.createNewMessage = (req, res) => {
   });
 };
 module.exports.fetchMessages = (req, res) => {
-  messages.find((err, data) => {
+  messages.find(async (err, data) => {
     if (err) {
       return res.status(500).json({
         err,
       });
     }
-    res.status(200).json({
-      messages: data,
+    const newData = await data.map((d) => {
+      return {
+        name: d.name,
+        message: d.message,
+        timestamp: d.createdAt,
+        email: d.email,
+      };
     });
+    return res.send(newData);
   });
 };

@@ -3,7 +3,7 @@ const whatsappSchema = new mongoose.Schema(
   {
     message: String,
     name: String,
-    received: Boolean,
+    email: String,
   },
   {
     timestamps: true,
